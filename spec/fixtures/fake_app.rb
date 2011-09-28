@@ -14,6 +14,14 @@ module Rack
       end
 
       get "/" do
+        if params["value"]
+          response.set_cookie("value", {
+            :value => params["value"],
+            :path => "/",
+            :expires => Time.now + 10
+          })
+        end
+
         "Hello, GET: #{params.inspect}"
       end
 
