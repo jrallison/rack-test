@@ -38,6 +38,12 @@ describe Rack::Test::Session do
       last_request.cookies.should == {}
     end
 
+    it "sends cookies when the path is blank" do
+      get "/", "value" => "1"
+      get ""
+      last_request.cookies.should == { "value" => "1" }
+    end
+
     it "persists cookies across requests that don't return any cookie headers" do
       get "/cookies/set", "value" => "1"
       get "/void"
